@@ -1,0 +1,22 @@
+# Standalone ZisK workspace for the Mina/Pickles out-of-circuit verifier.
+#
+# This is intentionally its OWN workspace (not a member of the parent
+# `cronos-to-zkvm` workspace) because the guest is built for the ZisK RISC-V
+# target via `cargo-zisk`, not by the parent's host `cargo build`. It mirrors
+# the layout produced by `cargo-zisk new`:
+#
+#   guest/  — the zkVM program (RV64IMA, riscv64ima-zisk-zkvm-elf)
+#   host/   — host driver that assembles a fixture into `input.bin`
+#
+# The heavy verification logic is reused verbatim from the parent's
+# `pickles-verifier` crate via path dependencies; only the IO layer and
+# entrypoint differ from the SP1 guest (`crates/o1-verifier`).
+[workspace]
+resolver = "2"
+members = ["guest", "host"]
+
+[workspace.dependencies]
+# Pulled by ziskup. The guest is built with the `zisk` toolchain; the version
+# is pinned to whatever `cargo-zisk` provides — update the rev/tag to match
+# your installed ZisK release if cargo complains about a mismatch.
+ziskos = { git = "https://github.com/0xPolygonHermez/zisk.git" }

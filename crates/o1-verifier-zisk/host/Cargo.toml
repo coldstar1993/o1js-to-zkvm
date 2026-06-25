@@ -1,0 +1,17 @@
+[package]
+name = "o1-verifier-zisk-host"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "gen-input"
+path = "src/main.rs"
+
+[dependencies]
+# Full std build of pickles-verifier for host-side fixture parsing + the
+# `OcamlProof::into_verifiable` conversion (same as `o1-verifier-host`).
+pickles-verifier = { path = "../../pickles-verifier" }
+clap = { version = "4", features = ["derive"] }
+# ZisK reads its input buffer with bincode v2 (`bincode::serde::decode_from_slice`
+# + `bincode::config::standard()`), so we must ENCODE the input the same way.
+bincode = { version = "2", features = ["serde"] }

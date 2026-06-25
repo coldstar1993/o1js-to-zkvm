@@ -1,0 +1,27 @@
+[package]
+name = "o1-verifier-zisk-guest"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "o1-verifier-zisk-guest"
+path = "src/main.rs"
+
+[dependencies]
+# Guest dep: no_std + alloc core only (same as the SP1 guest). We use the
+# no_std `verify`, `decode_verifier_blob`, and the `VerifiableProof` runtime
+# input type. `default-features = false` keeps the std-only wire/convert
+# modules (and rayon) out of the zkVM build.
+pickles-verifier = { path = "../../pickles-verifier", default-features = false }
+# ZisK guest runtime: provides `entrypoint!`, `io::read`, `io::commit`.
+ziskos = { workspace = true }
+
+[build-dependencies]
+# Build-script deps: a full std build of pickles-verifier so we can call
+# `wire::parse_wrap_vk` + `serialize::encode_verifier_blob` on the host, plus
+# the curves and precomputed SRS loader. These run on the host at build time,
+# never inside the zkVM. (resolver = "2" keeps these features separate from
+# the normal no_std guest dependency above.)
+pickles-verifier = { path = "../../pickles-verifier" }
+mina-curves = { path = "../../../mina/src/lib/crypto/proof-systems/curves" }
+poly-commitment = { path = "../../../mina/src/lib/crypto/proof-systems/poly-commitment" }
