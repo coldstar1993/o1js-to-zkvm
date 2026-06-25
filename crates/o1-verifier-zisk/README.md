@@ -100,6 +100,7 @@ required by the ZisK emulator.
 
 ```bash
 cargo build --release -p o1-verifier-zisk-host
+
 ./target/release/gen-input \
   --fixture-dir "$FIXTURE" \
   --output tmp/input.bin
