@@ -125,6 +125,7 @@ ziskemu -e target/elf/riscv64ima-zisk-zkvm-elf/release/o1-verifier-zisk-guest \
 
 A valid proof commits a single `0x01` byte (bincode `true`) as the public
 output. Add `-m` for performance metrics or `-p summary` for a cost breakdown.
+<img width="1656" height="495" alt="image" src="https://github.com/user-attachments/assets/b460047a-77db-423c-be08-f0b1905f1a1b" />
 
 > **Known issue (ZisK v1.0.0-alpha):** The emulator may panic with
 > `opc_fcall() FCALL_INPUT_READY_ID called with required_address > 0x7fffffff`.
