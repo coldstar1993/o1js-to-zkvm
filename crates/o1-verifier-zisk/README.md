@@ -6,18 +6,13 @@ the SP1 guest in [`crates/o1-verifier`](../o1-verifier): same verification
 logic (reused verbatim from [`crates/pickles-verifier`](../pickles-verifier)),
 different zkVM shell.
 
-The program proves the statement:
-
-> *"I ran the Pickles wrap-proof verifier on this `VerifiableProof` and it
-> returned `true`."*
-
-i.e. it produces a zk-STARK attesting that a Mina blockchain SNARK was
+It produces a zk-STARK attesting that a Mina blockchain SNARK was
 verified correctly inside the ZisK zkVM.
 
 ## Layout
 
 This is a **self-contained ZisK workspace** (not a member of the parent
-`cronos-to-zkvm` workspace, because the guest is compiled for the ZisK RISC-V
+`o1-to-zkvm` workspace, because the guest is compiled for the ZisK RISC-V
 target by `cargo-zisk`, not by the parent's host `cargo build`). It follows the
 standard `cargo-zisk new` shape:
 
@@ -64,16 +59,6 @@ Both bake the verifier blob the same way (`build.rs` + `include_bytes!` +
    ```
    When prompted for installation options, select **4) None** (CPU build, no
    proving key needed for emulation).
-
-   **macOS note:** If the installer fails downloading the Rust toolchain, download
-   `rust-toolchain-aarch64-apple-darwin.tar.gz` manually from
-   [0xPolygonHermez/rust releases](https://github.com/0xPolygonHermez/rust/releases),
-   then extract and register:
-   ```bash
-   tar -xzf ~/Downloads/rust-toolchain-aarch64-apple-darwin.tar.gz -C ~/.zisk/
-   xattr -rd com.apple.quarantine ~/.zisk/
-   rustup toolchain link zisk ~/.zisk
-   ```
 
 2. Initialize the `mina` git submodule (if not already done):
    ```bash
