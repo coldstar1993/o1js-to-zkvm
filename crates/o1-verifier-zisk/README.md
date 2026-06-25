@@ -154,6 +154,6 @@ cargo-zisk verify -p proof.bin
   tag/rev.
 - **Input alignment.** ZisK requires `input.bin` size to be a multiple of 8
   bytes. The host driver handles this automatically.
-- **Single proof only.** This wires up `verify` (one proof). The underlying
+- ~~**Single proof only.** This wires up `verify` (one proof). The underlying
   `pickles_verifier::verify_batch` supports batches; extend the guest +
-  host I/O to a `Vec<VerifiableProof>` if you need batching.
+  host I/O to a `Vec<VerifiableProof>` if you need batching.~~
